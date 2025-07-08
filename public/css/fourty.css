@@ -1,0 +1,236 @@
+* {
+  box-sizing: border-box
+}
+
+body {
+  background-color: #564136;
+}
+
+.root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.tab_css {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #E0B36F;
+  /* flex: 0 0 20%; */
+}
+
+.tab_css .tabinput {
+  display: none;
+  flex: 0 0 15%;
+}
+
+.tab_css .tablabel {
+  margin: 1% 80px;
+  /* width: 32%; */
+  padding: 10px 10px;
+  cursor: pointer;
+  border-radius: 20px;
+  /* background-color: #1f1f1f; */
+  color: #ffffff;
+  opacity: 1;
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
+  /* height: 12%; */
+  flex: 0 0 30%;
+}
+
+.tab_content {
+  position: relative;
+  order: 1;
+  display: none;
+  width: 100%;
+  height: 90%;
+  line-height: 1.6;
+  /* font-size: .9em; */
+  /* padding: 15px; */
+  /* border: 1px solid #abafa8; */
+  /* border-radius: 5px; */
+  /* margin: auto; */
+  background-color: #564136;
+}
+
+.tab_css .tabinput:checked+.tablabel,
+.tab_css .tablabel:hover {
+  opacity: 1;
+  font-weight: bold;
+  background-color: #564136;
+  color: #E0B36F;
+  transition: all 0.3s linear;
+}
+
+.tab_css .tabinput:checked+.tablabel+.tab_content {
+  display: initial;
+}
+
+.content {
+  justify-content: center;
+  margin: 8% 0;
+  width: 100%;
+  height: 85%;
+  /* background-color: green; */
+  /* flex-direction: row;  */
+}
+
+.fourtybtn,
+.fourtybtn *,
+.fourtybtn :after,
+.fourtybtn :before,
+.fourtybtn:after,
+.fourtybtn:before {
+  border: 0 solid;
+  box-sizing: border-box;
+}
+
+.fourtybtn {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: button;
+  background-color: #dab379;
+  background-image: none;
+  color: #564136;
+  cursor: pointer;
+  /* font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif,
+    Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji; */
+  font-size: 52px;
+  font-weight: bold;
+  line-height: 1.5;
+  margin: 0;
+  -webkit-mask-image: -webkit-radial-gradient(#E0B36F, #76e3aa);
+  padding: 0;
+  text-transform: uppercase;
+  margin: 1% 2% 0 5%;
+  height: 80%;
+  width: 20%;
+}
+
+.fourtybtn:hover {
+  color: white;
+}
+
+.fourtybtn:disabled {
+  cursor: default;
+}
+
+.fourtybtn:-moz-focusring {
+  outline: auto;
+}
+
+.fourtybtn.complete {
+  background: rgb(106, 129, 106);
+  color: white;
+}
+
+.fourtybtn svg {
+  display: block;
+  vertical-align: middle;
+}
+
+.fourtybtn [hidden] {
+  display: none;
+}
+
+.fourtybtn {
+  border-radius: 999px;
+  border-width: 1px;
+  overflow: hidden;
+  padding: 1rem 2rem;
+  position: relative;
+}
+
+.fourtybtn span {
+  /* mix-blend-mode: difference; */
+  display: inline;
+}
+
+.fourtybtn:before {
+  aspect-ratio: 1;
+  background: #cdbbab;
+  border-radius: 50%;
+  content: "";
+  height: 0;
+  left: 50%;
+  position: absolute;
+  top: -200%;
+  transform: translateX(-50%);
+  transition: height 0.3s;
+}
+
+.fourtybtn:hover:before {
+  height: 400%;
+}
+
+.fourtybtn .text-container {
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+
+.fourtybtn .text {
+  display: block;
+  /* mix-blend-mode: difference; */
+  position: relative;
+}
+
+.fourtybtn:hover .text {
+  -webkit-animation: move-up-alternate 0.3s ease forwards;
+  animation: move-up-alternate 0.3s ease forwards;
+}
+
+@-webkit-keyframes move-up-alternate {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(80%);
+  }
+
+  51% {
+    transform: translateY(-80%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes move-up-alternate {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(80%);
+  }
+
+  51% {
+    transform: translateY(-80%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+.fourtybtn:active {
+  transform: scale(.95);
+}
+
+.back {
+  font-size: 90px;
+  font-weight: bold;
+  color: #E0B36F;
+  line-height: 0.8;
+  text-decoration: none;
+  display: block;
+  float: left;
+  margin: 6% 3% 0 2%;
+}

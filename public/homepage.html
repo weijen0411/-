@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/korean-icon.ico" type="image/x-icon"/>
+    <title>首頁 - 韓語小教室</title>
+    <link rel="stylesheet" type="text/css" href="css/homepage.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+</head>
+<body>
+    <div class="root">
+        <div class="head">
+            <a class="title">韓語小教室</a>
+            <button class="logout" onclick="window.location.href='./index.html'"><p>登出</p></button>
+        </div>
+        <div class="footer">
+            <div class="group">
+                <button class="selectbtn1" id="select_class">學習課程</button>
+                <button class="selectbtn2" id="select_test">測驗</button>
+                <button class="selectbtn3" id="select_record">個人紀錄</button>
+
+                <div><a class="small">안녕하세요</a></div>
+            </div>
+            <div class="pic">
+                <img src="img/teach.png" height="360px">
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        const selectClassBtn = document.querySelector('#select_class');
+        const selectTestBtn = document.querySelector('#select_test');
+        const selectRecordBtn = document.querySelector('#select_record');
+
+        function handleOnclick(id){
+            if(id === 'select_class') {
+                sessionStorage.setItem('pageIndex',1);
+            }
+            else if(id === 'select_test') {
+                sessionStorage.setItem('pageIndex',2);
+            }
+            else if(id === 'select_record') {
+                sessionStorage.setItem('pageIndex',3);
+            }
+
+            location.assign('./select.html');
+        }
+
+        selectClassBtn.onclick = e => handleOnclick(e.target.id);
+        selectTestBtn.onclick = e => handleOnclick(e.target.id);
+        selectRecordBtn.onclick = e => handleOnclick(e.target.id);
+
+    </script>
+</body>
+</html>

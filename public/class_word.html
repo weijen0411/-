@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/korean-icon.ico" type="image/x-icon" />
+    <title>課程 - 簡易單字</title>
+    <link rel="stylesheet" type="text/css" href="css/word.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+</head>
+
+<body>
+    <div class="root">
+        <div class="head">
+            <a class="title">簡易單字</a>
+        </div>
+
+        <div class="footer">
+            <div class="btngroup" align="center">
+                <button class="wordbtn" id="word-1" onclick="window.location.href='./word_1.html'">
+                    <span class="text-container">
+                        <span class="text">顏色</span>
+                    </span></button>
+                <button class="wordbtn" id="word-2" onclick="window.location.href='./word_2.html'">
+                    <span class="text-container">
+                        <span class="text">生活用品</span>
+                    </span></button>
+                <button class="wordbtn" id="word-3" onclick="window.location.href='./word_3.html'">
+                    <span class="text-container">
+                        <span class="text">場所</span>
+                    </span></button>
+            </div>
+
+            <div><a class="back" href="select.html">⇦</a></div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+    <script src="./database/db.js"></script>
+    <script>
+        const fetchData = async () => {
+            const { account } = sessionStorage;
+
+            const courseProgress = await DB_API.getCourseProgress(account);
+            const wordProgress = courseProgress.find(el => el.courseName === 'class_word');
+
+            const word1Btn = document.querySelector('#word-1');
+            const word2Btn = document.querySelector('#word-2');
+            const word3Btn = document.querySelector('#word-3');
+
+            if (wordProgress.word1) word1Btn.classList.add('complete');
+            if (wordProgress.word2) word2Btn.classList.add('complete');
+            if (wordProgress.word3) word3Btn.classList.add('complete');
+        }
+
+        fetchData();
+    </script>
+</body>
+
+</html>

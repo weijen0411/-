@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/korean-icon.ico" type="image/x-icon" />
+    <title>課程 - 實用短句</title>
+    <link rel="stylesheet" type="text/css" href="css/sentence.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+</head>
+
+<body>
+    <div class="root">
+        <div class="head" align="center">
+            <a class="title">實用短句</a>
+        </div>
+
+        <div class="footer" align="center">
+            <div id="sentence-1" class="sentencebtn" onclick="window.location.href='./sentence_1.html'"><a
+                    class="stc1">常用簡單短句</a></div>
+            <div id="sentence-2" class="sentencebtn1" onclick="window.location.href='./sentence_2.html'">
+                <div class="stc_container"><a class="stc2">句型1：...多少錢？</a></div>
+                <div class="text_container"><a class="text_content">_______얼마예요?</a></div>
+            </div>
+            <div id="sentence-3" class="sentencebtn1" onclick="window.location.href='./sentence_3.html'">
+                <div class="stc_container"><a class="stc2">句型2：有/沒有...嗎？</a></div>
+                <div class="text_container"><a class="text_content">_______있어요?</a></div>
+            </div>
+            <div id="sentence-4" class="sentencebtn1 complete" onclick="window.location.href='./sentence_4.html'">
+                <div class="stc_container"><a class="stc2">句型3：...在哪裡？</a></div>
+                <div class="text_container"><a class="text_content">_______어디에 있어요?</a></div>
+            </div>
+        </div>
+
+        <div><a class="back" href="select.html">⇦</a></div>
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+    <script src="./database/db.js"></script>
+    <script>
+        const fetchData = async () => {
+            const { account } = sessionStorage;
+            const courseProgress = await DB_API.getCourseProgress(account);
+            const sentenceProgress = courseProgress.find(el => el.courseName === 'class_sentence');
+
+            const sentence1 = document.querySelector('#sentence-1');
+            const sentence2 = document.querySelector('#sentence-2');
+            const sentence3 = document.querySelector('#sentence-3');
+            const sentence4 = document.querySelector('#sentence-4');
+
+            if (sentenceProgress.sentence1) sentence1.classList.add('complete');
+            if (sentenceProgress.sentence2) sentence2.classList.add('complete');
+            if (sentenceProgress.sentence3) sentence3.classList.add('complete');
+            if (sentenceProgress.sentence4) sentence4.classList.add('complete');
+        }
+
+        fetchData();
+    </script>
+</body>
+
+</html>

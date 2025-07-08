@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/korean-icon.ico" type="image/x-icon" />
+    <title>課程 - 韓文40音</title>
+    <link rel="stylesheet" type="text/css" href="css/fourty.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+</head>
+
+<body onload="onLoad();">
+    <div class="root">
+        <div class="tab_css">
+            <input class="tabinput" id="consonantPage" type="radio" name="tab" checked>
+            <label for="consonantPage" class="tablabel">子音</label>
+            <div class="tab_content">
+                <div class="content" align="center">
+                    <button class="fourtybtn" id="consonant-1" onclick="window.location.href='./fourty_1.html'">
+                        <span class="text-container">
+                            <span class="text">基本子音</span>
+                        </span></button>
+                    <button class="fourtybtn" id="consonant-2" onclick="window.location.href='./fourty_2.html'">
+                        <span class="text-container">
+                            <span class="text">氣音子音</span>
+                        </span></button>
+                    <button class="fourtybtn" id="consonant-3" onclick="window.location.href='./fourty_3.html'">
+                        <span class="text-container">
+                            <span class="text">硬音子音</span>
+                        </span></button>
+
+                    <div><a class="back" href="select.html">⇦</a></div>
+                </div>
+
+            </div>
+
+            <input class="tabinput" id="vowelPage" type="radio" name="tab">
+            <label for="vowelPage" class="tablabel">母音</label>
+            <div class="tab_content">
+                <div align="center" class="content">
+                    <button class="fourtybtn" id="vowel-1" onclick="window.location.href='./fourty_4.html'">
+                        <span class="text-container">
+                            <span class="text">單母音</span>
+                        </span></button>
+                    <button class="fourtybtn" id="vowel-2" onclick="window.location.href='./fourty_5.html'">
+                        <span class="text-container">
+                            <span class="text">複合母音</span>
+                        </span></button>
+
+
+
+                    <div><a class="back" href="select.html">⇦</a></div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+    <script src="./database/db.js"></script>
+    <script>
+        const onLoad = () => {
+            const consonantPageTab = document.querySelector('#consonantPage');
+            const vowelPageTab = document.querySelector('#vowelPage');
+
+            const { pageIndex } = sessionStorage;
+            if (pageIndex === '1') {
+                consonantPageTab.click();
+            }
+            if (pageIndex === '2')
+                vowelPageTab.click();
+
+            delete sessionStorage.pageIndex;
+        }
+
+        const fetchData = async () => {
+            const { account } = sessionStorage;
+
+            const courseProgress = await DB_API.getCourseProgress(account);
+            const fourtyProgress = courseProgress.find(el => el.courseName === 'class_fourty');
+
+            const consonant1Btn = document.querySelector('#consonant-1');
+            const consonant2Btn = document.querySelector('#consonant-2');
+            const consonant3Btn = document.querySelector('#consonant-3');
+            const vowel1Btn = document.querySelector('#vowel-1');
+            const vowel2Btn = document.querySelector('#vowel-2');
+
+            if (fourtyProgress.fourty1) consonant1Btn.classList.add('complete');
+            if (fourtyProgress.fourty2) consonant2Btn.classList.add('complete');
+            if (fourtyProgress.fourty3) consonant3Btn.classList.add('complete');
+            if (fourtyProgress.fourty4) vowel1Btn.classList.add('complete');
+            if (fourtyProgress.fourty5) vowel2Btn.classList.add('complete');
+        }
+
+        fetchData();
+    </script>
+</body>
+
+</html>

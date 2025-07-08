@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/korean-icon.ico" type="image/x-icon" />
+    <title>個人紀錄 - 成就</title>
+    <link rel="stylesheet" type="text/css" href="css/record_medal.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+</head>
+
+<body>
+    <div class="root">
+        <div class="head">
+            <a class="title">成就</a>
+        </div>
+        <div class="footer">
+            <div class="content" align="center">
+                <img id="badge1" src="img/badge_grey.png" class="pic">
+                <p class="content_title">勤學乖寶寶</p>
+                <a class="text">完成所有課程</a>
+            </div>
+
+            <div class="content" align="center">
+                <img id="badge2" src="img/badge_grey.png" class="pic">
+                <p class="content_title">40音小天才</p>
+                <a class="text">40音課程完成，測驗皆80分以上</a>
+            </div>
+
+            <div class="content" align="center">
+                <img id="badge3" src="img/badge_grey.png" class="pic">
+                <p class="content_title">單字小天才</p>
+                <a class="text">單字課程完成，測驗皆80分以上</a>
+            </div>
+
+            <div class="content" align="center">
+                <img id="badge4" src="img/badge_grey.png" class="pic">
+                <p class="content_title">測驗高手</p>
+                <a class="text">4個測驗總分350分以上</a>
+            </div>
+
+            <div class="content" align="center">
+                <img id="badge5" src="img/badge_grey.png" class="pic">
+                <p class="content_title">韓文小博士</p>
+                <a class="text">所有測驗皆100分</a>
+            </div>
+
+        </div>
+
+        <div><a class="back">⇦</a></div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+    <script src="./database/db.js"></script>
+    <script>
+        const lightUpImg = (imgId, imgSrc) => {
+            const img = document.querySelector(`#${imgId}`);
+            img.src = imgSrc;
+        }
+
+        const badgeColor = {
+            badge1: 'img/badge_red.png',
+            badge2: 'img/badge_yellow.png',
+            badge3: 'img/badge_blue.png',
+            badge4: 'img/badge_green.png',
+            badge5: 'img/badge_wow.png',
+        }
+
+        const fetchData = async () => {
+            const { account } = sessionStorage;
+
+            const courseProgress = await DB_API.getCourseProgress(account);
+            const testLogs = await DB_API.getTestLogs(account);
+
+            const checkIsBadge1Complete = () => {
+                let isComplete = true;
+
+                for (var course of courseProgress) {
+                    for (var key in course) {
+                        const value = course[key];
+                        if (typeof (value) === 'boolean' && !value) {
+                            isComplete = false;
+                            break;
+                        }
+                    }
+                }
+
+                return isComplete;
+            }
+            const isBadge1Complete = checkIsBadge1Complete();
+
+            const checkIsBadge2Complete = () => {
+                const fourtyCourseProgress = courseProgress.find(el => el.courseName === 'class_fourty');
+                let isCourseComplete = true;
+                for (var key in fourtyCourseProgress) {
+                    const value = fourtyCourseProgress[key];
+                    if (typeof (value) === 'boolean' && !value) {
+                        isCourseComplete = false;
+                        break;
+                    }
+                }
+
+                const isTestPass =
+                    testLogs.some(test => test.title === '40音-聽力測驗' && test.score >= 80) &&
+                    testLogs.some(test => test.title === '40音-發音辨讀' && test.score >= 80);
+
+                return isCourseComplete && isTestPass;
+            }
+            const isBadge2Complete = checkIsBadge2Complete();
+
+            const checkIsBadge3Complete = () => {
+                const wordCourseProgress = courseProgress.find(el => el.courseName === 'class_word');
+                let isCourseComplete = true;
+                for (var key in wordCourseProgress) {
+                    const value = wordCourseProgress[key];
+                    if (typeof (value) === 'boolean' && !value) {
+                        isCourseComplete = false;
+                        break;
+                    }
+                }
+
+                const isTestPass =
+                    testLogs.some(test => test.title === '單字-聽讀練習' && test.score >= 80) &&
+                    testLogs.some(test => test.title === '單字-圖文配合' && test.score >= 80);
+
+                return isCourseComplete && isTestPass;
+            }
+            const isBadge3Complete = checkIsBadge3Complete();
+
+            const checkIsBadge4Complete = () => {
+                const getTestLogsByTitle = (title) => testLogs.filter(test => test.title === title);
+                const sortByScore = (arr) => arr.sort((a, b) => b.score - a.score);
+
+                const test1Logs = getTestLogsByTitle('40音-發音辨讀');
+                const test2Logs = getTestLogsByTitle('40音-聽力測驗');
+                const test3Logs = getTestLogsByTitle('單字-聽讀練習');
+                const test4Logs = getTestLogsByTitle('單字-圖文配合');
+
+                sortByScore(test1Logs);
+                sortByScore(test2Logs);
+                sortByScore(test3Logs);
+                sortByScore(test4Logs);
+
+                const test1Score = test1Logs[0]?.score;
+                const test2Score = test2Logs[0]?.score;
+                const test3Score = test3Logs[0]?.score;
+                const test4Score = test4Logs[0]?.score;
+
+                return (test1Score + test2Score + test3Score + test4Score) >= 350;
+            }
+            const isBadge4Complete = checkIsBadge4Complete();
+
+            const checkIsBadge5Complete = () => {
+                const isTest100Score = (title) => testLogs.some(test => test.title === title && test.score === 100);
+
+                return isTest100Score('40音-發音辨讀') &&
+                    isTest100Score('40音-聽力測驗') &&
+                    isTest100Score('單字-聽讀練習') &&
+                    isTest100Score('單字-圖文配合');
+            }
+            const isBadge5Complete = checkIsBadge5Complete();
+
+            if (isBadge1Complete) lightUpImg('badge1', badgeColor.badge1);
+            if (isBadge2Complete) lightUpImg('badge2', badgeColor.badge2);
+            if (isBadge3Complete) lightUpImg('badge3', badgeColor.badge3);
+            if (isBadge4Complete) lightUpImg('badge4', badgeColor.badge4);
+            if (isBadge5Complete) lightUpImg('badge5', badgeColor.badge5);
+        }
+
+        fetchData();
+
+        //-----------------------------
+        const backBtn = document.querySelector('.back');
+        backBtn.onclick = () => {
+            sessionStorage.pageIndex = 3;
+            location.assign('./select.html');
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/korean-icon.ico" type="image/x-icon" />
+    <title>個人紀錄 - 課程進度</title>
+    <link rel="stylesheet" type="text/css" href="css/record_class.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+</head>
+
+<body>
+    <div class="root">
+        <div class="title">課程完成進度</div>
+
+        <a class="back">⇦</a>
+        <div class="content">
+            <div class="text">韓文40音</div>
+            <div id="fourty_circle" class="out_circle fourty_percent">
+                <div class="inner_circle"></div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="text">簡易單字</div>
+            <div id="word_circle" class="out_circle word_percent">
+                <div class="inner_circle"></div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="text">實用短句</div>
+            <div id="sentence_circle" class="out_circle sentence_percent">
+                <div class="inner_circle"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+    <script src="./database/db.js"></script>
+    <script>
+        const { account } = sessionStorage;
+
+        const fourtyCircle = document.querySelector('#fourty_circle');
+        const wordCircle = document.querySelector('#word_circle');
+        const sentenceCircle = document.querySelector('#sentence_circle');
+        const fourtyText = document.querySelector('#fourty_circle div');
+        const wordText = document.querySelector('#word_circle div');
+        const sentenceText = document.querySelector('#sentence_circle div');
+
+        const setPercentage = (type, percent) => {
+            if (type === 'fourty') {
+                fourtyCircle.style.background = `conic-gradient(#E0B36F 0, #E0B36F ${percent}%, #4b4a4a  ${percent}%, #4b4a4a )`;
+                fourtyText.innerHTML = `${percent}%`;
+            }
+            if (type === 'word') {
+                wordCircle.style.background = `conic-gradient(#8e7769 0, #8e7769 ${percent}%, #4b4a4a ${percent}%, #4b4a4a )`;
+                wordText.innerHTML = `${percent}%`;
+            }
+            if (type === 'sentence') {
+                sentenceCircle.style.background = `conic-gradient(#CDA584 0, #CDA584 ${percent}%, #4b4a4a ${percent}%, #4b4a4a )`;
+                sentenceText.innerHTML = `${percent}%`;
+            }
+        }
+
+        const fetchData = async () => {
+            const courseProgress = await DB_API.getCourseProgress(account);
+
+            for (var el of courseProgress) {
+                if (el.courseName === 'class_fourty') {
+                    let percent = 0;
+                    if (el.fourty1) percent += 25;
+                    if (el.fourty2) percent += 10;
+                    if (el.fourty3) percent += 12.5;
+                    if (el.fourty4) percent += 25;
+                    if (el.fourty5) percent += 27.5;
+
+                    setPercentage('fourty', percent);
+                }
+                if (el.courseName === 'class_word') {
+                    let percent = 0;
+                    if (el.word1) percent += 33;
+                    if (el.word2) percent += 33;
+                    if (el.word3) percent += 33;
+                    if (percent === 99) percent = 100;
+
+                    setPercentage('word', percent);
+                }
+                if (el.courseName === 'class_sentence') {
+                    let percent = 0;
+                    for (var i = 0; i < 4; i++) {
+                        if (el[`sentence${i + 1}`])
+                            percent += 25;
+                    }
+
+                    setPercentage('sentence', percent);
+                }
+            }
+        }
+
+        fetchData();
+
+
+        //---------
+        const backBtn = document.querySelector('.back');
+        backBtn.onclick = () => {
+            sessionStorage.pageIndex = 3;
+            location.assign('./select.html');
+        }
+    </script>
+</body>
+
+</html>

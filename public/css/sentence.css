@@ -1,0 +1,132 @@
+body {
+    background-color: #d1b094;
+}
+
+.root {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.head {
+    width: 100%;
+    flex: 0 0 13%;
+}
+
+.footer {
+    width: 100%;
+    flex: 0 1 85%;
+    flex-direction: row;
+}
+
+.title {
+    font-size: 115px;
+    font-weight: bold;
+    /* margin-left: 3%; */
+    color: #4F3527;
+    text-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+    letter-spacing: 15px;
+    justify-content: center;
+}
+
+.sentencebtn {
+    width: 60%;
+    height: 20%;
+    background-color: #EDE7DB;
+    justify-content: center;
+    margin: 1% 0;
+    display: flex;
+    border-radius: 15px;
+    transition: 0.2s;
+}
+
+.sentencebtn:hover {
+    transform: scale(1.1);
+    background-color: #826C5F;
+    color: #EDE7DB;
+}
+
+.sentencebtn:active {
+    transform: scale(1.05);
+}
+
+.sentencebtn1 {
+    width: 60%;
+    height: 20%;
+    background-color: #EDE7DB;
+    /* justify-content: center; */
+    margin: 1% 0;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    transition: 0.2s;
+}
+
+.complete,
+.sentencebtn1.complete {
+    background: rgb(106, 129, 106);
+    color: #4F3527;
+}
+
+.sentencebtn1:hover {
+    transform: scale(1.1);
+    background-color: #826C5F;
+    color: #EDE7DB;
+}
+
+.sentencebtn1:active {
+    transform: scale(1.05);
+}
+
+.stc1 {
+    font-size: 60px;
+    margin: auto 0;
+    font-weight: bold;
+}
+
+.stc_container {
+    flex: 0 0 9%;
+    width: 100%;
+    /* float: left; */
+}
+
+.stc2 {
+    font-size: 30px;
+    /* margin: auto 0; */
+    /* font-weight: bold; */
+    float: left;
+    margin: 0% 0 0 3%;
+
+}
+
+.text_container {
+    flex: 0 0 12%;
+    width: 100%;
+}
+
+.text_content {
+    font-size: 45px;
+    font-weight: bold;
+    float: left;
+    margin-left: 7%;
+    /* margin-bottom: 1%; */
+}
+
+.back {
+    font-size: 90px;
+    font-weight: bold;
+    color: #4F3527;
+    line-height: 0.8;
+    text-decoration: none;
+    display: block;
+    float: left;
+    position: absolute;
+    margin: 0 0 2% 2%;
+    left: 0;
+    bottom: 0;
+
+    &:hover {
+        cursor: pointer;
+    }
+}

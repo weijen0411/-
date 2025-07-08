@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/korean-icon.ico" type="image/x-icon"/>
+    <title>韓文40音 - 單母音</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/dive.css">
+</head>
+
+<body>
+    <div class="container">
+        <iframe id="iframe_" src="https://dive.nutn.edu.tw/Experiment/kaleTestExperiment5.jsp?eid=27723&record=false"
+            frameborder="0" name="dive" class="dive_area"></iframe>
+    </div>
+    <script src="./js/dive_linker.js"></script>
+    <script src="./js/IO_vowel.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+    <script src="./database/db.js"></script>
+    <script>
+        const { account } = sessionStorage;
+        
+        //!!改名字!!
+        const courseName = 'class_fourty';
+        const chapter = 'fourty4';
+        //-----------//
+
+        const onLoad = async () => {
+            const resp = await DB_API.finishCourse(account, courseName, chapter);
+            console.log(resp);
+        }
+
+        onLoad();
+    </script>  
+</body>
+
+</html>

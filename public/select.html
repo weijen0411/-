@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/korean-icon.ico" type="image/x-icon" />
+    <title>韓語小教室</title>
+    <link rel="stylesheet" type="text/css" href="css/select.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+</head>
+
+<body onload="onLoad();">
+    <div class="root">
+        <div class="tab_css">
+            <input class="tabinput" id="classPage" type="radio" name="tab" checked>
+            <label for="classPage" class="tablabel">學習課程</label>
+            <div class="tab_content">
+                <div align="center" class="content">
+                    <button class="classbutton2 unlocked" id="class-1"
+                        onclick="window.location.href='./class_fourty.html'">韓文40音</button>
+                    <button class="classbutton1 unlocked" id="class-2"
+                        onclick="window.location.href='./class_word.html'">簡易單字</button>
+                    <button class="classbutton3 unlocked" id="class-3"
+                        onclick="window.location.href='./class_sentence.html'">實用短句</button>
+
+                    <div><a class="back" href="homepage.html">⇦</a></div>
+                </div>
+
+            </div>
+
+            <input class="tabinput" id="testPage" type="radio" name="tab">
+            <label for="testPage" class="tablabel">測驗</label>
+            <div class="tab_content">
+                <div align="center" class="content">
+                    <button class="testbutton2 unlocked" id="test-1"
+                        onclick="window.location.href='./test_1.html'">40音-發音辨讀</button>
+                    <button class="testbutton3 unlocked" id="test-2"
+                        onclick="window.location.href='./test_2.html'">40音-聽力測驗</button>
+                    <button class="testbutton4 unlocked" id="test-3"
+                        onclick="window.location.href='./test_3.html'">單字-聽讀練習</button>
+                    <button class="testbutton1 unlocked" id="test-4"
+                        onclick="window.location.href='./test_4.html'">單字-圖文配合</button>
+
+                    <div><a class="back" href="homepage.html">⇦</a></div>
+                </div>
+            </div>
+
+            <input class="tabinput" id="recordPage" type="radio" name="tab">
+            <label for="recordPage" class="tablabel">個人紀錄</label>
+            <div class="tab_content">
+                <div align="center" class="content">
+                    <button class="classbutton4 unlocked" id="record-1"
+                        onclick="window.location.href='./record_class.html'">課程進度</button>
+                    <button class="classbutton2 unlocked" id="record-2"
+                        onclick="window.location.href='./record_test.html'">測驗結果</button>
+                    <button class="classbutton3 unlocked" id="record-3"
+                        onclick="window.location.href='./record_medal.html'">成就</button>
+
+                    <div><a class="back" href="homepage.html">⇦</a></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+    <script src="./database/db.js"></script>
+    <script src="js/index.js"></script>
+    <script>
+        function onLoad() {
+            const pageIndex = sessionStorage.pageIndex;
+
+            if (pageIndex) {
+                const classPageRadio = document.querySelector('#classPage');
+                const testPageRadio = document.querySelector('#testPage');
+                const recordPageRadio = document.querySelector('#recordPage');
+
+                if (pageIndex === '1') classPageRadio.click();
+                else if (pageIndex === '2') testPageRadio.click();
+                else if (pageIndex === '3') recordPageRadio.click();
+
+                delete sessionStorage.pageIndex;
+            }
+        }
+    </script>
+
+</body>
+
+</html>

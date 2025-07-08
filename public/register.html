@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>註冊系統</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+</head>
+
+<body>
+    <div class="container" align="center">
+        <br><br><a class="logintext">註冊系統</a>
+        <input class="login" id="name" type="text" placeholder="姓名">
+        <input class="login" id="account" type="text" placeholder="帳號">
+        <input class="login" id="password" type="password" placeholder="密碼">
+
+        <button class="loginbtn" id="register">
+            <p>註冊</p>
+        </button>
+        <button class="alreadybtn" id="login" onclick="window.location.href='./index.html'">
+            <p>已經有帳號了？</p>
+        </button>
+    </div>
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script>
+<script src="./database/db.js"></script>
+<script src="./js/register.js"></script>
+<!-- <script src="https://www.gstatic.com/firebasejs/4.3.0/firebase.js"></script> -->
+
+</html>

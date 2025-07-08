@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/korean-icon.ico" type="image/x-icon" />
+    <title>個人紀錄 - 測驗結果</title>
+    <link rel="stylesheet" type="text/css" href="css/record_test.css">
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+</head>
+
+<body>
+    <div class="root">
+        <div class="head">
+            <a class="title">測驗結果</a>
+        </div>
+        <div class="footer">
+            <table id="log_displayTbl">
+                <tr>
+                    <th style="width: 100px;">排序</th>
+                    <th>測驗時間</th>
+                    <th>測驗主題</th>
+                    <th style="width: 150px;">分數</th>
+                </tr>
+            </table>
+        </div>
+
+        <div><a class="back">⇦</a></div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-firestore.js"></script>
+    <script src="./database/db.js"></script>
+    <script>
+        const fetchData = async () => {
+            const { account } = sessionStorage;
+
+            const table = document.querySelector('#log_displayTbl');
+
+            var testLogs = await DB_API.getTestLogs(account);
+
+            for (var index in testLogs) {
+                const log = testLogs[index];
+
+                const tr = document.createElement('tr');
+
+                const tdOrder = document.createElement('td');
+                tdOrder.innerHTML = parseInt(index) + 1;
+
+                const tdTime = document.createElement('td');
+                tdTime.innerHTML = log.time;
+
+                const tdTitle = document.createElement('td');
+                tdTitle.innerHTML = log.title;
+
+                const tdScore = document.createElement('td');
+                tdScore.innerHTML = log.score;
+
+                tr.appendChild(tdOrder);
+                tr.appendChild(tdTime);
+                tr.appendChild(tdTitle);
+                tr.appendChild(tdScore);
+
+                table.tBodies[0].appendChild(tr);
+            }
+        }
+
+        fetchData();
+
+        //-------------
+        const backBtn = document.querySelector('.back');
+        backBtn.onclick = () => {
+            sessionStorage.pageIndex = 3;
+            location.assign('./select.html');
+        }
+    </script>
+</body>
+
+</html>
